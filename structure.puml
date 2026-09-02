@@ -1,0 +1,84 @@
+@startuml
+class model.Transaction {
+- String id
+- String time
+- BusinessType type
+- BigDecimal amount
+- BigDecimal fee
+- BigDecimal extraFee
+- BigDecimal totalCost
+- String sender
+- String receiver
++ String getId()
++ String getTime()
++ BusinessType getType()
++ BigDecimal getAmount()
++ BigDecimal getFee()
++ BigDecimal getExtraFee()
++ BigDecimal getTotalCost()
++ String getSender()
++ String getReceiver()
++ String toString()
+}
+
+
+class service.AccountService {
+- int transactionCount
+- List<Transaction> records
++ int getTransactionCount()
++ List<Transaction> getRecords()
++ Transaction executeRemittance(BusinessType,BigDecimal,String,String)
+}
+
+
+class util.FileUtil {
++ {static} void saveRecords(List<Transaction>)
++ {static} List<Transaction> loadRecords()
+}
+
+class util.InputUtil {
+- {static} Scanner scanner
++ {static} String readLine(String)
++ {static} int readInt(String)
++ {static} BigDecimal readPositiveBigDecimal(String)
+}
+
+
+class Main {
+- {static} AccountService accountService
++ {static} void main(String[])
+- {static} void showMenu()
+- {static} void doRemittance()
+- {static} void queryRecords()
+- {static} void showStatistics()
+}
+
+
+enum model.BusinessType {
++  NORMAL
++  ELECTRONIC
++  URGENT
++  EXPRESS
+- String displayName
+- BigDecimal extraFee
++ String getDisplayName()
++ BigDecimal getExtraFee()
++ {static} BusinessType fromIndex(int)
+}
+
+
+class service.FeeCalculator {
++ {static} BigDecimal calculateFee(BigDecimal)
++ {static} boolean isAmountValid(BigDecimal)
+}
+
+class config.SystemConfig {
++ {static} BigDecimal MIN_AMOUNT
++ {static} BigDecimal MAX_AMOUNT
++ {static} BigDecimal FEE_RATE
++ {static} BigDecimal MIN_FEE
++ {static} BigDecimal MAX_FEE
++ {static} String DATA_FILE_PATH
+}
+
+@enduml

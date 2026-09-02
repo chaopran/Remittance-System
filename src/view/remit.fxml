@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.RemitController">
+    <top>
+        <Text text="邮政电子汇兑系统">
+            <font>
+                <Font name="Arial" size="20"/>
+            </font>
+        </Text>
+    </top>
+    <center>
+        <VBox spacing="15">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
+
+            <!-- 业务类型 -->
+            <HBox spacing="10">
+                <Label text="业务类型："/>
+                <ComboBox fx:id="cbBusinessType" prefWidth="220"/>
+            </HBox>
+            <!-- 汇款金额 -->
+            <HBox spacing="10">
+                <Label text="汇款金额："/>
+                <TextField fx:id="tfAmount" prefWidth="220" promptText="1-50000"/>
+            </HBox>
+            <!-- 汇款人 -->
+            <HBox spacing="10">
+                <Label text="汇款人："/>
+                <TextField fx:id="tfSender" prefWidth="220"/>
+            </HBox>
+            <!-- 收款人 -->
+            <HBox spacing="10">
+                <Label text="收款人："/>
+                <TextField fx:id="tfReceiver" prefWidth="220"/>
+            </HBox>
+
+            <!-- 操作按钮 -->
+            <HBox spacing="10">
+                <Button fx:id="btnRemit" text="办理汇款" onAction="#doRemit"/>
+                <Button fx:id="btnQuery" text="查询记录" onAction="#queryRecord"/>
+                <Button fx:id="btnStat" text="统计汇总" onAction="#showStat"/>
+            </HBox>
+
+            <!-- 提示信息 -->
+            <TextArea fx:id="taMsg" prefHeight="100" editable="false"/>
+
+            <!-- 交易表格 -->
+            <TableView fx:id="tableRecord" prefHeight="220">
+                <columns>
+                    <TableColumn fx:id="colId" text="编号"/>
+                    <TableColumn fx:id="colTime" text="时间"/>
+                    <TableColumn fx:id="colType" text="类型"/>
+                    <TableColumn fx:id="colAmount" text="汇款金额"/>
+                    <TableColumn fx:id="colFee" text="汇费"/>
+                    <TableColumn fx:id="colExtra" text="附加费"/>
+                    <TableColumn fx:id="colTotal" text="总费用"/>
+                    <TableColumn fx:id="colSender" text="汇款人"/>
+                    <TableColumn fx:id="colReceiver" text="收款人"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+</BorderPane>
