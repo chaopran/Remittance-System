@@ -5,7 +5,11 @@ import service.FeeCalculator;
 import util.InputUtil;
 import java.math.BigDecimal;
 import java.util.List;
-
+/**
+ * 电子汇兑系统主入口类
+ * 负责提供控制台交互菜单，调度汇款办理、记录查询与统计汇总等核心业务。
+ * 采用全局异常捕获机制，确保单次操作失败不会导致整个系统退出。
+ */
 public class Main {
     private static final AccountService accountService = new AccountService();
     public static void main(String[] args) {
@@ -14,6 +18,7 @@ public class Main {
         System.out.println("========================================================");
         System.out.println();
         boolean running = true;
+        // 主循环：持续展示菜单并响应用户操作，直到用户选择退出
         while (running) {
             try {
                 showMenu();
@@ -40,6 +45,11 @@ public class Main {
         System.out.println("  1. 办理汇款   2. 查询交易记录   3. 统计汇总   0. 退出系统");
         System.out.println("--------------------------------------------------------");
     }
+    /**
+     * 办理汇款业务流程
+     * 完整流程：选择业务类型 → 输入金额并校验 → 填写收发人信息 →
+     * 计算费用并预览 → 用户确认 → 调用服务执行交易
+     */
     private static void doRemittance() {
         System.out.println("\n========== 办理汇款 ==========");
         BusinessType[] types = BusinessType.values();//全部枚举常量，存到数组中返回
@@ -89,6 +99,10 @@ public class Main {
         System.out.println("\n交易成功！");
         System.out.println("  交易编号：" + tx.getId());
     }
+    /**
+     * 查询并以表格形式展示所有交易记录
+     * <p>使用固定宽度格式化输出，保证多行数据列对齐</p>
+     */
     private static void queryRecords() {
         System.out.println("\n========== 交易记录 ==========");
         List<Transaction> records = accountService.getRecords();

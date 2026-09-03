@@ -24,7 +24,8 @@ public enum BusinessType {
         return extraFee;
     }
     public static BusinessType fromIndex(int index){
-        BusinessType[] values = values();//全部枚举常量，存到数组中返回
+        //全部枚举常量，存到数组中返回
+        BusinessType[] values = values();
         if (index < 1 || index >values.length){
             return null;
         }

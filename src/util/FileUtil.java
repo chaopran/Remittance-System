@@ -25,9 +25,16 @@ public class FileUtil {
                 writer.newLine();
             }
         } catch (IOException e) {
+            // 仅打印警告不抛出异常，避免因IO问题中断主业务流程
             System.err.println("[系统警告] 交易记录保存失败：" + e.getMessage());
         }
     }
+    /**
+     * 从CSV文件加载交易记录列表
+     * 文件不存在时返回空列表（非null），调用方无需额外判空。
+     * 遇到格式不合规的行会静默跳过，保证已正确写入的数据不受影响。
+     * @return 交易记录列表，文件不存在或读取失败时返回空列表
+     */
     public static List<Transaction> loadRecords() {
         List<Transaction> records = new ArrayList<>();
         File file = new File(SystemConfig.DATA_FILE_PATH);
@@ -49,5 +56,4 @@ public class FileUtil {
         }
         return records;
     }
-
 }

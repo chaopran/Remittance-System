@@ -22,6 +22,7 @@ public class FeeCalculator {
         }
         return fee;
     }
+    // 判断汇款金额是否在合法范围内
     public static boolean isAmountValid(BigDecimal amount){
         return amount.compareTo(SystemConfig.MIN_AMOUNT)>=0 && amount.compareTo(SystemConfig.MAX_AMOUNT)<=0;
     }

@@ -32,7 +32,16 @@ public class AccountService {
     public List<Transaction> getRecords() {
         return records;
     }
-
+    /**
+     * 执行汇款业务
+     * 完整流程：计算费用 → 生成流水号 → 构建交易对象 →
+     * 追加到内存列表 → 持久化到CSV文件 → 返回交易凭证
+     * @param type     业务类型（决定附加费）
+     * @param amount   汇款金额（已通过上层校验）
+     * @param sender   汇款人姓名
+     * @param receiver 收款人姓名
+     * @return 成功创建的交易对象；理论上不会返回null（异常由上层catch兜底）
+     */
     public Transaction executeRemittance(BusinessType type, BigDecimal amount, String sender, String receiver) {
         BigDecimal fee = FeeCalculator.calculateFee(amount);
         BigDecimal extraFee = type.getExtraFee();
